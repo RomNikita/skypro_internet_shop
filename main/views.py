@@ -4,7 +4,11 @@ from main.models import Product
 
 
 def home(request):
-    return render(request, 'main/home.html')
+    product_list = Product.objects.all()
+    context = {
+        'object_list': product_list
+    }
+    return render(request, 'main/home.html', context)
 
 def contacts(request):
     if request.method == 'POST':
@@ -21,3 +25,11 @@ def products(request):
         'object_list': product_list
     }
     return render(request, 'main/products.html', context)
+
+
+def product_id(request, pk):
+    product = Product.objects.get(pk=pk)
+    context = {
+       'product': product
+    }
+    return render(request, 'main/product_id.html', context)
