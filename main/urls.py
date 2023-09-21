@@ -2,13 +2,21 @@ from django.conf.urls.static import static
 from django.urls import path
 
 from config import settings
-from main.views import contacts, products, home, product_id
+from main.views import contacts, ProductCreateView, ProductListView, ProductDetailView, ProductUpdateView, \
+    ProductDeleteView, BlogListView, BlogCreateView, BlogUpdateView, BlogDetailView, BlogDeleteView
 
 urlpatterns = [
-    path('', home),
-    path('contacts/', contacts),
-    path('products/', products),
-    path('products/<int:pk>/', product_id, name='product')
+    path('', ProductListView.as_view(), name='home'),
+    path('contacts/', contacts, name='contacts'),
+    path('product/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
+    path('product/create/', ProductCreateView.as_view(), name='product_create'),
+    path('product/edit/<int:pk>/', ProductUpdateView.as_view(), name='product_edit'),
+    path('product/delete/<int:pk>/', ProductDeleteView.as_view(), name='product_delete'),
+    path('blog/', BlogListView.as_view(), name='blog_list'),
+    path('blog/create/', BlogCreateView.as_view(), name='blog_create'),
+    path('blog/edit/<int:pk>/', BlogUpdateView.as_view(), name='blog_edit'),
+    path('blog/<int:pk>/', BlogDetailView.as_view(), name='blog_detail'),
+    path('blog/delete/<int:pk>', BlogDeleteView.as_view(), name='blog_delete')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
