@@ -35,11 +35,11 @@ class Product(models.Model):
 
 class Blog(models.Model):
     title = models.CharField(max_length=100, verbose_name='заголовок')
-    slug = models.CharField(max_length=100, verbose_name='слаг')
+    slug = models.CharField(max_length=100, verbose_name='слаг', null=True, blank=True)
     content = models.TextField(verbose_name='содержание')
     preview = models.ImageField(upload_to='blog', verbose_name='превью блога', null=True, blank=True)
     date = models.DateField(default=timezone.now, verbose_name='дата создания', null=True)
-    sign_of_blog = models.BooleanField(default=False, verbose_name='признак публикации')
+    sign_of_blog = models.BooleanField(default=True, verbose_name='признак публикации')
     number_of_views = models.IntegerField(default=0, verbose_name='количество просмотров')
 
     def __str__(self):
