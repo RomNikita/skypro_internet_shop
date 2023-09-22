@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from pytils.translit import slugify
 
-from main.models import Product, Blog
+from main.forms import ProductForm, VersionForm
+from main.models import Product, Blog, Version
 
 
 def contacts(request):
@@ -17,7 +18,7 @@ def contacts(request):
 
 class ProductCreateView(CreateView):
     model = Product
-    fields = ('name', 'description', 'preview', 'price', 'date', 'modified_at',)
+    form_class = ProductForm
     success_url = reverse_lazy('home')
 
 
@@ -79,7 +80,7 @@ class BlogDetailView(DetailView):
 class BlogUpdateView(UpdateView):
     model = Blog
     fields = ('title', 'slug', 'content', 'preview', 'date', 'sign_of_blog', 'number_of_views',)
-    #success_url = reverse_lazy('blog_list')
+    # success_url = reverse_lazy('blog_list')
     template_name = 'main/blog_edit.html'
 
     def form_valid(self, form):
@@ -97,3 +98,15 @@ class BlogDeleteView(DeleteView):
     model = Blog
     success_url = reverse_lazy('blog_list')
 
+
+def product_version_list(request):
+    products = Product.objects.all()
+    active_versions = Version.objects.filter(is_active=True)
+
+    return render(request, 'main/home.html', {'products': products, 'active_versions': active_versions})
+
+
+class VersionCreateView(CreateView):
+    model = Version
+    form_class = VersionForm
+    success_url = reverse_lazy('product_detail')
