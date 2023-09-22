@@ -10,10 +10,10 @@
 </head>
 <body>
     <div class="article-container">
+        <a class="btn btn-warning" href="{% url 'version_create' product.pk %}">Создать версию</a>
         <img class="card-img-top" src="{% mediapath product.preview %}" alt="Card image cap">
         <h1>{{ product.name }}</h1>
         <p>{{ product.price }} RUB.</p>
-
         <div>
             <p>Описание: {{ product.description }}</p>
         </div>

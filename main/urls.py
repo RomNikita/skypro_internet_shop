@@ -3,10 +3,11 @@ from django.urls import path
 
 from config import settings
 from main.views import contacts, ProductCreateView, ProductListView, ProductDetailView, ProductUpdateView, \
-    ProductDeleteView, BlogListView, BlogCreateView, BlogUpdateView, BlogDetailView, BlogDeleteView
+    ProductDeleteView, BlogListView, BlogCreateView, BlogUpdateView, BlogDetailView, BlogDeleteView, \
+    product_version_list, VersionCreateView
 
 urlpatterns = [
-    path('', ProductListView.as_view(), name='home'),
+    path('', product_version_list, name='home'),
     path('contacts/', contacts, name='contacts'),
     path('product/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
     path('product/create/', ProductCreateView.as_view(), name='product_create'),
@@ -16,7 +17,8 @@ urlpatterns = [
     path('blog/create/', BlogCreateView.as_view(), name='blog_create'),
     path('blog/edit/<int:pk>/', BlogUpdateView.as_view(), name='blog_edit'),
     path('blog/<int:pk>/', BlogDetailView.as_view(), name='blog_detail'),
-    path('blog/delete/<int:pk>', BlogDeleteView.as_view(), name='blog_delete')
+    path('blog/delete/<int:pk>', BlogDeleteView.as_view(), name='blog_delete'),
+    path('product/<int:pk>/version/', VersionCreateView.as_view(), name='version_create'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
