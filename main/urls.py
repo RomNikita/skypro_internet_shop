@@ -1,10 +1,12 @@
-from django.conf.urls.static import static
 from django.urls import path
 
-from config import settings
-from main.views import contacts, ProductCreateView, ProductListView, ProductDetailView, ProductUpdateView, \
+from main.views import contacts, ProductCreateView, ProductDetailView, ProductUpdateView, \
     ProductDeleteView, BlogListView, BlogCreateView, BlogUpdateView, BlogDetailView, BlogDeleteView, \
     product_version_list, VersionCreateView
+
+
+app_name = 'main'
+
 
 urlpatterns = [
     path('', product_version_list, name='home'),
@@ -20,5 +22,3 @@ urlpatterns = [
     path('blog/delete/<int:pk>', BlogDeleteView.as_view(), name='blog_delete'),
     path('product/<int:pk>/version/', VersionCreateView.as_view(), name='version_create'),
 ]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

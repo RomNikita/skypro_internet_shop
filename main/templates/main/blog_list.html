@@ -8,7 +8,7 @@
     <h1 class="display-4">Блог</h1>
 
 <div class="album py-5 bg-light">
-  <a class="btn btn-outline-primary" href="{% url 'blog_create' %}">Добавить запись</a>
+  <a class="btn btn-outline-primary" href="{% url 'main:blog_create' %}">Добавить запись</a>
   <div class="container">
     <div class="row">
       {% for object in object_list %}
@@ -22,9 +22,9 @@
             <p class="card-text">{{ version.name_of_version }}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <a href="{% url 'blog_detail' object.pk %}" class="btn btn-sm btn-outline-secondary">View</a>
-                <a href="{% url 'blog_edit' object.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
-                <a href="{% url 'blog_delete' object.pk %}" class="btn btn-sm btn-outline-secondary">Delete</a>
+                <a href="{% url 'main:blog_detail' object.pk %}" class="btn btn-sm btn-outline-secondary">View</a>
+                <a href="{% url 'main:blog_edit' object.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                <a href="{% url 'main:blog_delete' object.pk %}" class="btn btn-sm btn-outline-secondary">Delete</a>
               </div>
             </div>
           </div>

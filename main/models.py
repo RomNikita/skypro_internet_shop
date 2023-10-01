@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 
+from users.models import User
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name='название категории')
@@ -23,6 +25,7 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='цена')
     date = models.DateField(default=timezone.now, verbose_name='дата создания', null=True)
     modified_at = models.DateField(verbose_name='дата последнего изменения', null=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f'{self.name}'
@@ -41,6 +44,7 @@ class Blog(models.Model):
     date = models.DateField(default=timezone.now, verbose_name='дата создания', null=True)
     sign_of_blog = models.BooleanField(default=True, verbose_name='признак публикации')
     number_of_views = models.IntegerField(default=0, verbose_name='количество просмотров')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -57,6 +61,7 @@ class Version(models.Model):
     number_of_version = models.IntegerField(default=0, verbose_name='номер версии')
     name_of_version = models.CharField(max_length=100, verbose_name='название версии')
     is_active = models.BooleanField(default=True, verbose_name='признак версии')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f'{self.name_of_version} ({self.number_of_version})'
